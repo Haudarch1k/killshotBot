@@ -16,3 +16,17 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+    
+from aiohttp import web
+import asyncio
+
+async handle(request):
+    return web.Response(text="Бот в сети!")
+
+async def start_server():
+    app = web.Application()
+    app.router.add_get('/', handle)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCSite(runner, '0.0.0.0', 10000)
+    await site.start()
